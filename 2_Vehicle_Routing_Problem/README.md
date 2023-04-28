@@ -13,8 +13,8 @@ $x^k_{ij}$ : 1 if vehicle k travels from node i to j, 0 otherwise
 $y^k_{i}$ : variables to remove sub-tour
   
   
-## Objective function - for the shortist total distance
- 
+## Objective function 
+for the shortest total distance  
 $$min(Z) =\sum_{k\in K}\sum_{i\in V}\sum_{j\in V}c_{ij}x^k_{ij} $$
 
 ## subject-to
