@@ -11,7 +11,7 @@ $r$ : ratio of fuel consumption and distance
   
 ***Variables:***  
 $x^k_{ij}$ : 1 if vehicle k travels from node i to j, 0 otherwise  
-$u1^k_{i}$ : battery level when vehicle starts from node i
+$u1^k_{i}$ : battery level when vehicle starts from node i  
 $u2^k_{i}$ : battery level when vehicle arrives node i
   
   
@@ -27,6 +27,10 @@ $\sum_{k\in K}\sum_{j\in V\setminus\left\\{i\right\\}} x^k_{ij}= 1,\\;\forall i\
 $\sum_{k\in K}\sum_{i\in V\setminus\left\\{j\right\\}} x^k_{ij}= 1,\\;\forall j\in V\setminus\left\\{0\right\\}$  
 $\sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ij} = \sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ji},\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\}$  
 $u1^k_0=Q,\\;\forall k\in K$  
+$u1^k_i, u2^k_i\geq 0,\\;\forall k\in K,\\;\forall i\in V$  
+$u1^k_i, u2^k_i\leq Q,\\;\forall k\in K,\\;\forall i\in V$  
+$u1^k_i-rc_{ij}x^k_{ij}+Q(1-x^k_{ij})\leq u2^k_i,\\;\forall k\in K,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
+$u1^k_i=u2^k_i,\\;\forall k\in K,\\;\forall i\in V$  
 $x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$  
 
 # Result Example Image
