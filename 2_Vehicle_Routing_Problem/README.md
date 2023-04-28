@@ -26,3 +26,7 @@ $\sum_{k\in K}\sum_{i\in V\setminus\left\\{j\right\\}} x^k_{ij}= 1,\\;\forall j\
 $\sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ij} = \sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ji},\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\}$  
 $y^k_{i}-(n+1)x_{ij}\geq y^k_{j}-n,\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\},\\;\forall j\in V\setminus\left\\{0\right\\},\\;i\neq j$  
 $x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$  
+
+# Result Example Image
+
+result-VRP.png
