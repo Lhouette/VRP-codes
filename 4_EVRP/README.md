@@ -13,7 +13,7 @@ $r$ : ratio of fuel consumption and distance
   
 ***Variables:***  
 $x^k_{ij}$ : 1 if vehicle k travels from node i to j, 0 otherwise  
-$y^k_i$ : variables to remove sub-tour
+$y^k_i$ : variables to remove sub-tour  
 $u1^k_{i}$ : battery level when vehicle starts from node i  
 $u2^k_{i}$ : battery level when vehicle arrives node i
   
