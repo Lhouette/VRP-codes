@@ -2,8 +2,8 @@
 
 ***Sets:***  
 $V$ : sets of all nodes  
-$N$ : sets of customer nodes
-$M% : sets of charging station nodes
+$N$ : sets of customer nodes  
+$M$ : sets of charging station nodes
 $K$ : sets of vehicles
   
 ***Parameters:***  
