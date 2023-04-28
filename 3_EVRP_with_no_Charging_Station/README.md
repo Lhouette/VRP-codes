@@ -29,7 +29,7 @@ $\sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ij} = \sum_{j\in V\setminus\left\\
 $u1^k_0=Q,\\;\forall k\in K$  
 $u1^k_i, u2^k_i\geq 0,\\;\forall k\in K,\\;\forall i\in V$  
 $u1^k_i, u2^k_i\leq Q,\\;\forall k\in K,\\;\forall i\in V$  
-$u1^k_i-rc_{ij}x^k_{ij}+Q(1-x^k_{ij})\leq u2^k_i,\\;\forall k\in K,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
+$u1^k_i-rc_{ij}x^k_{ij}+Q(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
 $u1^k_i=u2^k_i,\\;\forall k\in K,\\;\forall i\in V$  
 $x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$  
 
