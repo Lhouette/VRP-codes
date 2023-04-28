@@ -31,4 +31,4 @@ $x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$
 
 # Result Example Image
 
-<img src="https://github.com/Lhouette/VRP-codes/blob/main/2_Vehicle_Routing_Problem/result-VRP.png?raw=true"/>
+<img src="https://github.com/Lhouette/VRP-codes/blob/main/3_EVRP_with_no_Charging_Station/result-EVRPnCS.png?raw=true"/>
