@@ -26,8 +26,8 @@ $$min(Z) =\sum_{k\in K}\sum_{i\in V}\sum_{j\in V}c_{ij}x^k_{ij} $$
 
 $\sum_{j\in V\setminus\left\\{0\right\\}} x^k_{0j}= 1,\\;\forall k\in K$  
 $\sum_{i\in V\setminus\left\\{0\right\\}} x^k_{i0}= 1,\\;\forall k\in K$  
-$\sum_{k\in K}\sum_{j\in N\setminus\left\\{i\right\\}} x^k_{ij}= 1,\\;\forall i\in N\setminus\left\\{0\right\\}$  
-$\sum_{k\in K}\sum_{i\in N\setminus\left\\{j\right\\}} x^k_{ij}= 1,\\;\forall j\in N\setminus\left\\{0\right\\}$  
+$\sum_{k\in K}\sum_{j\in N\setminus\left\\{i\right\\}} x^k_{ij}= 1,\\;\forall i\in N$  
+$\sum_{k\in K}\sum_{i\in N\setminus\left\\{j\right\\}} x^k_{ij}= 1,\\;\forall j\in N$  
 $\sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ij} = \sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ji},\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\}$  
 $u1^k_0=Q,\\;\forall k\in K$  
 $u1^k_i=!,\\;\forall k\in K,\\;\forall i\in M$  
