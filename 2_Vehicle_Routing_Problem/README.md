@@ -29,4 +29,4 @@ $x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$
 
 # Result Example Image
 
-result-VRP.png
+<img src="https://github.com/Lhouette/VRP-codes/blob/main/2_Vehicle_Routing_Problem/result-VRP.png?raw=true"/>
