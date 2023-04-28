@@ -30,7 +30,7 @@ $\sum_{k\in K}\sum_{j\in N\setminus\left\\{i\right\\}} x^k_{ij}= 1,\\;\forall i\
 $\sum_{k\in K}\sum_{i\in N\setminus\left\\{j\right\\}} x^k_{ij}= 1,\\;\forall j\in N$  
 $\sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ij} = \sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ji},\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\}$  
 $u1^k_0=Q,\\;\forall k\in K$  
-$u1^k_i=!,\\;\forall k\in K,\\;\forall i\in M$  
+$u1^k_i=Q,\\;\forall k\in K,\\;\forall i\in M$  
 $u1^k_i, u2^k_i\geq 0,\\;\forall k\in K,\\;\forall i\in V$  
 $u1^k_i, u2^k_i\leq Q,\\;\forall k\in K,\\;\forall i\in V$  
 $u1^k_i-rc_{ij}x^k_{ij}+Q(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
