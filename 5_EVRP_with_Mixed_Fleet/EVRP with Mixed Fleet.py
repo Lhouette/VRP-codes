@@ -1,10 +1,145 @@
 from itertools import product
 from sys import stdout as out
 from mip import Model, xsum, minimize, BINARY
-from PIL import Image
+from PIL import Image, ImageDraw
 import random
 from math import cos, sin, pi, sqrt, dist
-import ImageMaker as IM
+import warnings
+warnings.filterwarnings('ignore')
+
+def drawarrow(draw, pos, color, width, amp):
+    a = 30/180*pi
+    pos = ((100+10*pos[0])*amp,
+           (100+10*pos[1])*amp,
+           (100+10*pos[2])*amp,
+           (100+10*pos[3])*amp)
+    dist = ((pos[0]-pos[2])**2+(pos[1]-pos[3])**2)**0.5
+    midpoint = ((pos[0]+pos[2])/2, (pos[1]+pos[3])/2)
+    draw.line(pos, fill=color, width=width)
+    vec = (3*amp*(pos[0]-pos[2])/dist, 3*amp*(pos[1]-pos[3])/dist)
+    vec1 = (vec[0]*cos(a)-vec[1]*sin(a), vec[0]*sin(a)+vec[1]*cos(a))
+    pos1 = midpoint + (midpoint[0]+vec1[0], midpoint[1]+vec1[1])
+    vec2 = (vec[0]*cos(a)+vec[1]*sin(a), -vec[0]*sin(a)+vec[1]*cos(a))
+    pos2 = midpoint + (midpoint[0]+vec2[0], midpoint[1]+vec2[1])
+    draw.line(pos1, fill=color, width=width)
+    draw.line(pos2, fill=color, width=width)
+
+def makeresimg(SIZE, node_size, route_width, coordinates, V, Vn, Vc, Ve, K, Kc, Ke, Qc, Qe, rc, re, x, c):
+    img = Image.new(mode='RGB', size=(200*SIZE, 200*SIZE), color=0xFFFFFF)
+    draw = ImageDraw.Draw(img)
+    typeColor = [0x0000FF,   # conventional
+                 0x00FF00]    # electrical
+    cap = []
+    for i in K:
+        cap.append([])
+        for j in V:
+            if j in {0}:
+                cap[i].append(0)
+            if j in Vn:
+                cap[i].append(-1)
+            if j in Vc:
+                cap[i].append(Qc)
+            if j in Ve:
+                cap[i].append(Qe)
+    for k in Kc:
+        cap[k][0] = Qc
+        for n in {0}.union(Vc):
+            idx = n
+            while True:
+                nidx = [i for i in V if x[k][idx][i].x >= 0.99]
+                if len(nidx) > 1:
+                    for m in nidx:
+                        sidx = m
+                        while True:
+                            snidx = [i for i in V if x[k][sidx][i].x >= 0.99][0]
+                            pos = tuple(coordinates[sidx]+coordinates[snidx])
+                            drawarrow(draw, pos, typeColor[0], route_width, SIZE)
+                            if snidx in {0}.union(Vc):
+                                break
+                            cap[k][snidx] = cap[k][sidx] - c[snidx][sidx]*rc
+                            sidx = snidx
+                    break
+                elif len(nidx) == 1:
+                    nidx = nidx[0]
+                    pos = tuple(coordinates[idx]+coordinates[nidx])
+                    drawarrow(draw, pos, typeColor[0], route_width, SIZE)
+                    if nidx in {0}.union(Vc):
+                        break
+                    cap[k][nidx] = cap[k][idx] - c[nidx][idx]*rc
+                    idx = nidx
+                else:
+                    break
+    for k in Ke:
+        cap[k][0] = Qe
+        for n in {0}.union(Ve):
+            idx = n
+            while True:
+                nidx = [i for i in V if x[k][idx][i].x >= 0.99]
+                if len(nidx) > 1:
+                    for m in nidx:
+                        sidx = m
+                        while True:
+                            snidx = [i for i in V if x[k][sidx][i].x >= 0.99][0]
+                            pos = tuple(coordinates[sidx]+coordinates[snidx])
+                            drawarrow(draw, pos, typeColor[1], route_width, SIZE)
+                            if snidx in {0}.union(Ve):
+                                break
+                            cap[k][snidx] = cap[k][sidx] - c[snidx][sidx]*re
+                            sidx = snidx
+                    break
+                elif len(nidx) == 1:
+                    nidx = nidx[0]
+                    pos = tuple(coordinates[idx]+coordinates[nidx])
+                    drawarrow(draw, pos, typeColor[1], route_width, SIZE)
+                    if nidx in {0}.union(Ve):
+                        break
+                    cap[k][nidx] = cap[k][idx] - c[nidx][idx]*re
+                    idx = nidx
+                else:
+                    break
+    for i in V:
+        print()
+        for j in K:
+            print('%.1f\t\t' % cap[j][i], end='')
+    ncap = [0]*(len(Vn)+1)
+    for i in Vn:
+        for k in K:
+            if cap[k][i] > 0:
+                ncap[i] = cap[k][i]
+                break
+    draw.rectangle(((100-node_size)*SIZE,
+                    (100-node_size)*SIZE,
+                    (100+node_size)*SIZE,
+                    (100+node_size)*SIZE), 
+                    fill='white', outline='black', width=5)
+    for i in Vn:
+        pos = ((100 - node_size + 10*coordinates[i][0])*SIZE, 
+               (100 - node_size + 10*coordinates[i][1])*SIZE, 
+               (100 + node_size + 10*coordinates[i][0])*SIZE, 
+               (100 + node_size + 10*coordinates[i][1])*SIZE)
+        draw.ellipse(pos, fill='white', outline='black', width=5)
+        captex = "{:.1f}".format(ncap[i])
+        w, h = draw.textsize(captex)
+        draw.text(((100+10*coordinates[i][0])*SIZE-w/2, 
+                   (100+10*coordinates[i][1])*SIZE-h/2), captex, fill='black')
+        draw.text(((100+10*coordinates[i][0])*SIZE, 
+                   (100+10*coordinates[i][1]-3)*SIZE-h/2), str(i), fill='black')
+    for i in Vc:
+        pos = ((100 - node_size + 10*coordinates[i][0])*SIZE, 
+               (100 - node_size + 10*coordinates[i][1])*SIZE, 
+               (100 + node_size + 10*coordinates[i][0])*SIZE, 
+               (100 + node_size + 10*coordinates[i][1])*SIZE)
+        draw.ellipse(pos, fill='white', outline=typeColor[0], width=5)
+    for i in Ve:
+        pos = ((100 - node_size + 10*coordinates[i][0])*SIZE, 
+               (100 - node_size + 10*coordinates[i][1])*SIZE, 
+               (100 + node_size + 10*coordinates[i][0])*SIZE, 
+               (100 + node_size + 10*coordinates[i][1])*SIZE)
+        draw.ellipse(pos, fill='white', outline=typeColor[1], width=5)
+    return img
+
+def makerawimg(SIZE, node_size, route_width, coordinates):
+    print("no img")
 
 # N     : customer node의 개수
 # kc    : conventional vehicle의 개수
@@ -15,11 +150,11 @@ import ImageMaker as IM
 # Qe    : electric vehicle의 최대 배터리 용량
 # rc    : 거리에 따라 소모되는 연료의 양
 # re    : 거리에 따라 소모되는 배터리의 양
-N = 12
+N = 8
 kc, ke = 2, 2
 Sc, Se = 2, 2
-Qc, Qe = 200, 20
-rc, re = 2, 1
+Qc, Qe = 20, 15
+rc, re = 1, 1
 
 # (0, 0) depot node
 coordinates = [[0, 0]] 
@@ -36,22 +171,15 @@ for i in range(N):
 
 # Sc개의 fuel station 위치 지정
 for i in range(Sc):
-    r = 7.5
-    t = 2*pi/Sc*(i)
+    r = 5.5
+    t = 2*pi*(1/Sc*(i)+1/4)
     coordinates.append([r*cos(t), r*sin(t)])
 
 # Se개의 charging station 위치 지정
 for i in range(Se):
-    r = 5.5
+    r = 3.5
     t = 2*pi/Se*(i)
     coordinates.append([r*cos(t), r*sin(t)])
-
-# 각 지점으로부터의 거리 dists
-dists = []
-for i in range(len(coordinates)):
-    dists.append([])
-    for j in range(len(coordinates)-i-1):
-        dists[i].append(dist(coordinates[i], coordinates[j]))
 
 # =====================           Sets          ===================== 
 # V     : 모든 노드의 set
@@ -70,10 +198,11 @@ Kc = set(range(kc))
 Ke = set(range(kc, kc+ke))
 
 # distances matrix
-c = [[0 if i == j
-      else dists[i][j-i-1] if j>i
-      else dists[j][i-j-1]
-      for j in V] for i in V]
+c = []
+for i in V:
+    c.append([])
+    for j in V:
+        c[i].append(dist(coordinates[i], coordinates[j]))
 
 # ===================== Parameters & Variables =====================
 
@@ -99,8 +228,8 @@ model.objective = minimize(xsum(c[i][j]*x[k][i][j] for k in K for i in V for j i
 
 # 경로 k에 대해서 depot에서 나오는 길은 하나, 들어오는 길은 하나
 for k in K:
-    model += xsum(x[k][0][j] for j in V-{0}) == 1
-    model += xsum(x[k][i][0] for i in V-{0}) == 1
+    model += xsum(x[k][0][j] for j in V-{0}) <= 1
+    model += xsum(x[k][i][0] for i in V-{0}) <= 1
 
 # 각 customer node에서 모든 경로 k를 고려해서 나가는 길은 하나
 for i in Vn:
@@ -115,6 +244,18 @@ for k in Kc:
     model += u1[k][0] == Qc
 for k in Ke:
     model += u1[k][0] == Qe
+
+# 다른 충전소에는 갈 수 없음
+for k in Kc:
+    for i in Ve:
+        for j in V:
+            model += x[k][i][j] == 0
+            model += x[k][j][i] == 0
+for k in Ke:
+    for i in Vc:
+        for j in V:
+            model += x[k][i][j] == 0
+            model += x[k][j][i] == 0
 
 # 각 충전, 주유소에서 나가는 vehicle의 배터리나 연료는 최대
 for k in Kc:
@@ -139,7 +280,7 @@ for i in V:
 
 # 모든 노드에서 vehicle k가 들어오는 수와 나가는 수는 같다. 
 for k in K:
-    for i in V - {0}:
+    for i in V:
         model += xsum(x[k][i][j] for j in V - {i}) == xsum(x[k][j][i] for j in V - {i})
 
 # sub-tour를 제거하는 constraints
@@ -156,7 +297,7 @@ for (i, j) in product(V, V):
         for k in Ke:
             model += u1[k][i] - re*c[i][j]*x[k][i][j] + Qe*(1 - x[k][i][j]) >= u2[k][j]
 
-# 각 customer node에서 들어올때 배터리와 나갈때 배터리의 양은 같다. depot 제외
+# 각 customer node에서 들어올때 배터리와 나갈때 배터리의 양은 같다. depot, station 제외
 for k in K:
     for i in Vn:
         model += u1[k][i] == u2[k][i]
@@ -166,12 +307,23 @@ model.optimize()
 
 # =====================      이미지 생성      =====================
 SIZE = 10
-node_size = 4
+node_size = 2
 route_width = 2
 
 if model.num_solutions:
     out.write('******* route with total distance %g *******'%(model.objective_value))
-    res_img = IM.makeresimg()
+    print()
+    for i in V:
+        print('%2d\t%.1f\t%.1f'%(i, coordinates[i][0], coordinates[i][1]))
+    print()
+    for i in V:
+        print()
+        for j in V:
+            print('%.1f\t'%c[i][j], end='')
+    print()
+    res_img = makeresimg(SIZE, node_size, route_width, coordinates, V, Vn, Vc, Ve, K, Kc, Ke, Qc, Qe, rc, re, x, c)
+    res_img.show()
+    res_img.save('result-EVRPMF.png')
 else:
     print("NO ANSWER")
-    res_img = IM.makerawimg()
+    res_img = makerawimg()
