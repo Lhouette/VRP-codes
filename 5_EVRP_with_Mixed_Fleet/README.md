@@ -21,10 +21,8 @@ $r_e$ : ratio of battery consumption and distance of electirc vehicle
 ***Variables:***  
 $x^k_{ij}$ : 1 if vehicle k travels from node i to j, 0 otherwise  
 $y^k_i$ : variables to remove sub-tour  
-$uc1^k_{i}$ : fuel level when conventional vehicle starts from node i  
-$uc2^k_{i}$ : fuel level when conventional vehicle arrives node i  
-$ue1^k_{i}$ : battery level when electric vehicle starts from node i  
-$ue2^k_{i}$ : battery level when electirc vehicle arrives node i  
+$u1^k_{i}$ : fuel or battery level when vehicle starts from node i  
+$u2^k_{i}$ : fuel or battery level when vehicle arrives node i  
   
   
 ## Objective function 
