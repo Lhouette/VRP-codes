@@ -31,16 +31,22 @@ $$min(Z) =\sum_{k\in K}\sum_{i\in V}\sum_{j\in V}c_{ij}x^k_{ij} $$
 
 ## subject-to
 
-$\sum_{j\in V\setminus\left\\{0\right\\}} x^k_{0j}= 1,\\;\forall k\in K$  
-$\sum_{i\in V\setminus\left\\{0\right\\}} x^k_{i0}= 1,\\;\forall k\in K$  
-$\sum_{k\in K}\sum_{j\in N\setminus\left\\{i\right\\}} x^k_{ij}= 1,\\;\forall i\in N$  
-$\sum_{k\in K}\sum_{i\in N\setminus\left\\{j\right\\}} x^k_{ij}= 1,\\;\forall j\in N$  
-$\sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ij} = \sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ji},\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\}$  
-$u1^k_0=Q,\\;\forall k\in K$  
-$u1^k_i=Q,\\;\forall k\in K,\\;\forall i\in M$  
+$\sum_{j\in V\setminus\left\\{0\right\\}} x^k_{0j}\leq 1,\\;\forall k\in K$  
+$\sum_{i\in V\setminus\left\\{0\right\\}} x^k_{i0}\leq 1,\\;\forall k\in K$  
+$\sum_{k\in K}\sum_{j\in V\setminus\left\\{i\right\\}} x^k_{ij}= 1,\\;\forall i\in V_n$  
+$\sum_{k\in K}\sum_{i\in V\setminus\left\\{j\right\\}} x^k_{ij}= 1,\\;\forall j\in V_n$  
+$\sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ij} = \sum_{j\in V\setminus\left\\{i\right\\}}x^k_{ji},\\;\forall k\in K,\\;\forall i\in V$  
+$u1^k_0=Q_c,\\;\forall k\in K_c$  
+$u1^k_0=Q_e,\\;\forall k\in K_e$  
+$u1^k_i=Q_c,\\;\forall k\in K_c,\\;\forall i\in V_c$  
+$u1^k_i=Q_e,\\;\forall k\in K_e,\\;\forall i\in V_e$  
+$x^k_{ij}, x^k_{ji}=0,\\;\forall k\in K_c,\\;\forall i\in V_e,\\;\forall j\in V$  
+$x^k_{ij}, x^k_{ji}=0,\\;\forall k\in K_e,\\;\forall i\in V_c,\\;\forall j\in V$  
 $u1^k_i, u2^k_i\geq 0,\\;\forall k\in K,\\;\forall i\in V$  
-$u1^k_i, u2^k_i\leq Q,\\;\forall k\in K,\\;\forall i\in V$  
-$u1^k_i-rc_{ij}x^k_{ij}+Q(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
+$u1^k_i, u2^k_i\leq Q_c,\\;\forall k\in K_c,\\;\forall i\in V$  
+$u1^k_i, u2^k_i\leq Q_e,\\;\forall k\in K_e,\\;\forall i\in V$  
+$u1^k_i-r_cc_{ij}x^k_{ij}+Q_c(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K_c,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
+$u1^k_i-r_ec_{ij}x^k_{ij}+Q_e(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K_e,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
 $y^k_{i}-(n+1)x_{ij}\geq y^k_{j}-n,\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\},\\;\forall j\in V\setminus\left\\{0\right\\},\\;i\neq j$  
 $u1^k_i=u2^k_i,\\;\forall k\in K,\\;\forall i\in V$  
 $x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$  
