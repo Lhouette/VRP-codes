@@ -10,3 +10,5 @@ Green vehicle routing problem with mixed fleet of electric and conventional vehi
 4. Electric Vehicle Routing Prioblem (EVRP)
 
 5. EVRP with Mixed Fleet (EVRPMF)
+
+6. Capacitated EVRPMF (CEVRPMF)
