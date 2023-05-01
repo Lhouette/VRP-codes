@@ -1,4 +1,4 @@
-# FORMULATION
+# FORMULATION 
 
 ***Sets:***  
 $V$ : sets of all nodes  
