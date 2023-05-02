@@ -268,15 +268,15 @@ for k in Ke:
 # 각 시점의 배터리의 값은 0과 최댓값 사이에 있어야 함
 for i in V:
     for k in Kc:
-        u1[k][i] >= 0
-        u1[k][i] <= Qc
-        u2[k][i] >= 0
-        u2[k][i] <= Qc
+        model += u1[k][i] >= 0
+        model += u1[k][i] <= Qc
+        model += u2[k][i] >= 0
+        model += u2[k][i] <= Qc
     for k in Ke:
-        u1[k][i] >= 0
-        u1[k][i] <= Qe
-        u2[k][i] >= 0
-        u2[k][i] <= Qe
+        model += u1[k][i] >= 0
+        model += u1[k][i] <= Qe
+        model += u2[k][i] >= 0
+        model += u2[k][i] <= Qe
 
 # 모든 노드에서 vehicle k가 들어오는 수와 나가는 수는 같다. 
 for k in K:
