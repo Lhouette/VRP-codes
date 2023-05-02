@@ -96,10 +96,10 @@ for k in set(range(K)):
 # 각 시점의 배터리의 값은 0과 Q사이에 있어야 함
 for k in set(range(K)):
     for i in V:
-        u1[k][i] >= 0
-        u1[k][i] <= Q
-        u2[k][i] >= 0
-        u2[k][i] <= Q
+        model += u1[k][i] >= 0
+        model += u1[k][i] <= Q
+        model += u2[k][i] >= 0
+        model += u2[k][i] <= Q
 # k번째 경로로 들어왔으면 나가는 것도 k경로로 나간다. 
 for k in set(range(K)):
     for i in V - {0}:
