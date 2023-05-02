@@ -8,15 +8,17 @@ $V_e$ : sets of charging station nodes
 $V_c$ : sets of fuel station nodes  
   
 $K$ : sets of all vehicles  
-$K_c$ : sets of conventional vehicles  
-$K_e$ : sets of electric vehicles  
+$K_c$ : sets of (CV)conventional vehicles  
+$K_e$ : sets of (EV)electric vehicles  
   
 ***Parameters:***  
 $c_{ij}$ : distance of traveling from node i to j  
-$Q_c$ : fuel capacity of conventional vehicle  
-$r_c$ : ratio of fuel consumption and distance of conventional vehicle  
-$Q_e$ : battery capacity of electric vehicle  
-$r_e$ : ratio of battery consumption and distance of electirc vehicle  
+$C_c$ : storage capacity of CV  
+$C_e$ : storage capacity of EV  
+$Q_c$ : fuel capacity of CV  
+$Q_e$ : battery capacity of EV  
+$r_c$ : ratio of fuel consumption and distance of CV  
+$r_e$ : ratio of battery consumption and distance of EV  
   
 ***Variables:***  
 $x^k_{ij}$ : 1 if vehicle k travels from node i to j, 0 otherwise  
