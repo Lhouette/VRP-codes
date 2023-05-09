@@ -13,4 +13,4 @@ Green vehicle routing problem with mixed fleet of electric and conventional vehi
 
 6. Capacitated EVRPMF (CEVRPMF)
 
-7. CEVRPMF with Reverse Logistics (CEVRPMFRL)
+7. EVRPMF with Reverse Logistics (CEVRPMFRL)
