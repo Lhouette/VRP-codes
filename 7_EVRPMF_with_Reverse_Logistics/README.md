@@ -1,6 +1,7 @@
 # ASSUMPTION
 
 - There is electirc vehicle(EV) and conventional vehicle(CV) 
+- Each vehicle must be start at depot
 - Each vehicle must be at depot when each route ends
 - One of the vehicle must arrive to customer nodes once.
 - Total number of new products can't exceed total capacity of all vehicle
