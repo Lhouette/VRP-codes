@@ -36,7 +36,7 @@ $x^k_{ij}$ : 1 if vehicle k travels from node i to j, 0 otherwise
 $y^k_i$ : variables to remove sub-tour  
 $u1^k_{i}$ : fuel or battery level when vehicle starts from node i  
 $u2^k_{i}$ : fuel or battery level when vehicle arrives node i  
-$s^k_i$ : load of new product when vehicle k starts from node i
+$s^k_i$ : load of new product when vehicle k starts from node i  
 $r^k_i$ : load of product collected by vehicle k starts from node i
   
 ## Objective function 
