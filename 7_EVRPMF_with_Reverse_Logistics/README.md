@@ -104,7 +104,7 @@ $r^k_i-C_e(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_e,\\;\forall i\in V,\\;\foral
 Constraints that remove sub-tours.  
 $y^k_{i}-(n+1)x_{ij}\geq y^k_{j}-n,\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\},\\;\forall j\in V\setminus\left\\{0\right\\},\\;i\neq j$  
   
-$x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$  
+$x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$
 
 # Result Example Image
 
