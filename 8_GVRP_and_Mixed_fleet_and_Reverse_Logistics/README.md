@@ -124,4 +124,4 @@ informations of NODES
 |8|chags|+3.5|+0.0| | |
 |9|chags|-1.7|+3.0| | |
 |10|chags|-1.8|-3.0| | |
-<img src="[https://github.com/Lhouette/VRP-codes/blob/main/7_EVRPMF_with_Reverse_Logistics/result-EVRPMFRL.png?raw=true](https://github.com/Lhouette/VRP-codes/blob/main/8_GVRP_and_Mixed_fleet_and_Reverse_Logistics/result-GVRPMFRL.png?raw=true)"/>
+<img src="https://github.com/Lhouette/VRP-codes/blob/main/8_GVRP_and_Mixed_fleet_and_Reverse_Logistics/result-GVRPMFRL.png?raw=true"/>
