@@ -31,13 +31,18 @@ $Q_e$ : battery capacity of EV
 $r_c$ : ratio of fuel consumption and distance of CV  
 $r_e$ : ratio of battery consumption and distance of EV  
   
+$M$ : Very Large Number  
+  
 ***Variables:***  
 $x^k_{ij}$ : 1 if vehicle k travels from node i to j, 0 otherwise  
 $y^k_i$ : variables to remove sub-tour  
 $u1^k_{i}$ : fuel or battery level when vehicle starts from node i  
 $u2^k_{i}$ : fuel or battery level when vehicle arrives node i  
 $s^k_i$ : load of new product when vehicle k starts from node i  
-$r^k_i$ : load of product collected by vehicle k starts from node i
+$r^k_i$ : load of product collected by vehicle k starts from node i  
+$g1^k_i$ : total GHG emission when vehicle k starts from node i  
+$g2^k_i$ : total GHG emission when vehicle k arrives node i  
+$g^k$ : total GHG emission of vehicle k  
   
 ## Objective function 
 for the shortest total distance  
