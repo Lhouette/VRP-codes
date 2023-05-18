@@ -6,6 +6,7 @@
 - One of the vehicle must arrive to customer nodes once.
 - Total number of new products can't exceed total capacity of all vehicle
 - Total number of old products can't exceed total capacity of all vehicle
+- GHG formulation should be linear function
 
 # FORMULATION 
 
