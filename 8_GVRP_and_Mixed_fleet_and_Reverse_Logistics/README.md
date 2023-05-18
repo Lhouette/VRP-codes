@@ -106,13 +106,14 @@ $r^k_i+p_ix^k_{ij}-C_e(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_e,\\;\forall i\in
 $r^k_i-C_c(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_c,\\;\forall i\in V,\\;\forall j\in V_c,\\;i\neq j$  
 $r^k_i-C_e(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_e,\\;\forall i\in V,\\;\forall j\in V_e,\\;i\neq j$  
   
-GHG emission constaints  
+GHG emission constraints  
 $g1^k_0=0,\\;\forall k\in K$  
 $g1^k_i\geq0,\\;\forall k\in K,\\;\forall i\in V$  
 $g2^k_i\geq0,\\;\forall k\in K,\\;\forall i\in V$  
 $g1^k_i+r_cc_{ij}-M(1-x^k_{ij})\geq g2^k_i,\\;\forall k\in K_c,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
 $g1^k_i+r_ec_{ij}-M(1-x^k_{ij})\geq g2^k_i,\\;\forall k\in K_e,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
 $g^k\geq g2^k_0,\\;\forall k\in K$  
+$g1^k_i=g2^k_i,\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\}$  
   
 Constraints that remove sub-tours.  
 $y^k_{i}-(n+1)x_{ij}\geq y^k_{j}-n,\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\},\\;\forall j\in V\setminus\left\\{0\right\\},\\;i\neq j$  
