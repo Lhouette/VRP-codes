@@ -45,8 +45,8 @@ $g2^k_i$ : total GHG emission when vehicle k arrives node i
 $g^k$ : total GHG emission of vehicle k  
   
 ## Objective function 
-for the shortest total distance  
-$$min(Z) =\sum_{k\in K}\sum_{i\in V}\sum_{j\in V}c_{ij}x^k_{ij} $$
+for the smallest GHG emission 
+$$min(Z) =\sum_{k\in K}g^k $$
 
 ## subject-to
 For vehicle k, there is one way out of the depot and one way in.  
@@ -105,6 +105,14 @@ $r^k_i+p_ix^k_{ij}-C_c(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_c,\\;\forall i\in
 $r^k_i+p_ix^k_{ij}-C_e(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_e,\\;\forall i\in V,\\;\forall j\in V_n,\\;i\neq j$  
 $r^k_i-C_c(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_c,\\;\forall i\in V,\\;\forall j\in V_c,\\;i\neq j$  
 $r^k_i-C_e(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_e,\\;\forall i\in V,\\;\forall j\in V_e,\\;i\neq j$  
+  
+GHG emission constaints  
+$g1^k_0=0,\\;\forall k\in K$  
+$g1^k_i\geq0,\\;\forall k\in K,\\;\forall i\in V$  
+$g2^k_i\geq0,\\;\forall k\in K,\\;\forall i\in V$  
+$g1^k_i+r_cc_{ij}-M(1-x^k_{ij})\geq g2^k_i,\\;\forall k\in K_c,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
+$g1^k_i+r_ec_{ij}-M(1-x^k_{ij})\geq g2^k_i,\\;\forall k\in K_e,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
+$g^k\geq g2^k_0,\\;\forall k\in K$  
   
 Constraints that remove sub-tours.  
 $y^k_{i}-(n+1)x_{ij}\geq y^k_{j}-n,\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\},\\;\forall j\in V\setminus\left\\{0\right\\},\\;i\neq j$  
