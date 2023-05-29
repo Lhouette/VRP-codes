@@ -22,15 +22,19 @@ $K_c$ : sets of (CV)conventional vehicles
 $K_e$ : sets of (EV)electric vehicles  
   
 ***Parameters:***  
-$c_{ij}$ : distance of traveling from node i to j  
+$c_{ij}$ : fuel consumption of traveling from node i to j  
+$e_{ij}$ : battery consumption of traveling from node i to j  
+$W_c$ : weight of conventional vehicle  
+$W_e$ : weight of electric vehicle  
+$W_p$ : weight of new product  
+$W_q$ : weight of collected goods  
 $d_i$ : The number of products desired by the consumer node i  
 $p_i$ : The number of goods that need to be collected from consumer node i  
 $C_c$ : storage capacity of CV  
 $C_e$ : storage capacity of EV  
 $Q_c$ : fuel capacity of CV  
 $Q_e$ : battery capacity of EV  
-$r_c$ : ratio of fuel consumption and distance of CV  
-$r_e$ : ratio of battery consumption and distance of EV  
+$r_c$ : coefficient of CO2 emission by consumed fuel    
   
 $M$ : Very Large Number  
   
@@ -43,11 +47,10 @@ $s^k_i$ : load of new product when vehicle k starts from node i
 $r^k_i$ : load of product collected by vehicle k starts from node i  
 $g1^k_i$ : total GHG emission when vehicle k starts from node i  
 $g2^k_i$ : total GHG emission when vehicle k arrives node i  
-$g^k$ : total GHG emission of vehicle k  
   
 ## Objective function 
-for the smallest GHG emission 
-$$min(Z) =\sum_{k\in K}g^k $$
+for the smallest CO2 emission 
+$$min(Z) =\sum_{k\in K_c}g2^k_0 $$
 
 ## subject-to
 For vehicle k, there is one way out of the depot and one way in.  
@@ -81,8 +84,8 @@ $u1^k_i, u2^k_i\leq Q_c,\\;\forall k\in K_c,\\;\forall i\in V$
 $u1^k_i, u2^k_i\leq Q_e,\\;\forall k\in K_e,\\;\forall i\in V$  
   
 It is a formula that represents the fuel consumption of each vehicle.  
-$u1^k_i-r_cc_{ij}x^k_{ij}+Q_c(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K_c,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
-$u1^k_i-r_ec_{ij}x^k_{ij}+Q_e(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K_e,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
+$u1^k_i-c_{ij}(W_c+W_ps^k_i+W_qr^k_i)/W_c+M(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K_c,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
+$u1^k_i-e_{ij}(W_e+W_ps^k_i+W_qr^k_i)/W_e+M(1-x^k_{ij})\geq u2^k_i,\\;\forall k\in K_e,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
   
 It is a constraint indicating the continuity of the remaining fuel.  
 $u1^k_i=u2^k_i,\\;\forall k\in K,\\;\forall i\in V$  
@@ -109,34 +112,14 @@ $r^k_i-C_e(1-x^k_{ij})\leq r^k_j,\\;\forall k\in K_e,\\;\forall i\in V,\\;\foral
   
 GHG emission constraints  
 $g1^k_0=0,\\;\forall k\in K$  
-$g1^k_i\geq0,\\;\forall k\in K,\\;\forall i\in V$  
-$g2^k_i\geq0,\\;\forall k\in K,\\;\forall i\in V$  
-$g1^k_i+r_cc_{ij}-M(1-x^k_{ij})\geq g2^k_i,\\;\forall k\in K_c,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
-$g1^k_i+r_ec_{ij}-M(1-x^k_{ij})\geq g2^k_i,\\;\forall k\in K_e,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
-$g^k\geq g2^k_0,\\;\forall k\in K$  
+$g1^k_i\geq0,\\;\forall k\in K_c,\\;\forall i\in V$  
+$g2^k_i\geq0,\\;\forall k\in K_c,\\;\forall i\in V$  
+$g1^k_i=0,\\;\forall k\in K_e,\\,\forall i\in V$  
+$g2^k_i=0,\\;\forall k\in K_e,\\,\forall i\in V$  
+$g1^k_i+r_cc_{ij}(W_c+W_ps^k_i+W_qr^k_i)/W_c-M(1-x^k_{ij})\geq g2^k_i,\\;\forall k\in K_c,\\;\forall i, j\in V\setminus\left\\{0\right\\}, i\neq j$  
 $g1^k_i=g2^k_i,\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\}$  
   
 Constraints that remove sub-tours.  
 $y^k_{i}-(n+1)x_{ij}\geq y^k_{j}-n,\\;\forall k\in K,\\;\forall i\in V\setminus\left\\{0\right\\},\\;\forall j\in V\setminus\left\\{0\right\\},\\;i\neq j$  
   
 $x^k_{ij}\in \left\\{0, 1\right\\},\\;\forall i, j\in V$  
-
-# Result Example Image
-total GHG : 45.76471088826656  
-elapsed time : 142.65796184539795 s  
-  
-informations of NODES  
-|##|type|x|y|#d|#p|
-|---|---|---|---|---|---|
-|0|depot|+0.0|+0.0| | |
-|1|custm|-4.9|-1.9|2|3|
-|2|custm|-2.3|+2.8|2|3|
-|3|custm|-3.9|-6.4|2|3|
-|4|custm|-5.5| +3.5|1|2|
-|5|custm|-5.6|-7.1|2|1|
-|6|custm|+5.7|-7.9|1|3|
-|7|fuels|-5.5|+0.0| | |
-|8|chags|+3.5|+0.0| | |
-|9|chags|-1.7|+3.0| | |
-|10|chags|-1.8|-3.0| | |
-<img src="https://github.com/Lhouette/VRP-codes/blob/main/8_GVRP_and_Mixed_fleet_and_Reverse_Logistics/result-GVRPMFRL.png?raw=true"/>
